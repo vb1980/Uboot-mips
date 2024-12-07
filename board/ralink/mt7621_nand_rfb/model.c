@@ -65,7 +65,7 @@ void gpio_init(void)
 	gpio_output(SYS_BLED,0);
 #else	
 	gpio_output(PWR_LED,0);
-#if !defined(CONFIG_H3CTX180X) && !defined(CONFIG_AX18T)
+#if !defined(CONFIG_H3CTX180X) && !defined(CONFIG_AX18T) && !defined(CONFIG_Q20) && !defined(CONFIG_A9)
 	gpio_output(WIFI_2G_LED,0);
 	gpio_output(WIFI_5G_LED,0);
 #endif
@@ -126,7 +126,7 @@ void LEDOFF(void)
 }
 void PWR_LEDON(void)
 {
-#if defined(CONFIG_RTAX53U) || defined(CONFIG_RTAX54) || defined(CONFIG_H3CTX180X) || defined(CONFIG_XG1) || defined(CONFIG_AX18T)
+#if defined(CONFIG_RTAX53U) || defined(CONFIG_RTAX54) || defined(CONFIG_H3CTX180X) || defined(CONFIG_XG1) || defined(CONFIG_AX18T) || defined(CONFIG_Q20) || defined(CONFIG_A9)
 	gpio_output(PWR_LED,0);
 #elif defined(CONFIG_4GAX56)
 	gpio_output(PWR_LED,1);

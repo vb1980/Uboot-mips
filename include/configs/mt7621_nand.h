@@ -110,6 +110,20 @@
 #define WAN_LED                 15
 #endif 
 
+#if defined(CONFIG_Q20)
+#define WPS_BTN                 16
+#define RST_BTN                 18
+#define PWR_LED                 15
+#define WAN_LED                 14
+#endif 
+
+#if defined(CONFIG_A9)
+#define WPS_BTN                 16
+#define RST_BTN                 18
+#define PWR_LED                 15
+#define WAN_LED                 14
+#endif 
+
 #ifdef CONFIG_4GAX56
 #define WPS_BTN                 4
 #define RST_BTN                 8

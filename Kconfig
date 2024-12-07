@@ -515,6 +515,18 @@ config AX18T
 	help
 	  Enable AX18T.
 
+config Q20
+	bool "Enable Q20"
+	default n
+	help
+	  Enable Q20.
+
+config A9
+	bool "Enable A9"
+	default n
+	help
+	  Enable A9.
+
 config RTAX54
 	bool "Enable RTAX54"
 	default n

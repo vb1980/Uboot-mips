@@ -62,6 +62,10 @@ const char *model =
 	"XG1";
 #elif defined(CONFIG_AX18T)
 	"SIM-AX18T";
+#elif defined(CONFIG_Q20)
+	"JCG-Q20";
+#elif defined(CONFIG_A9)
+	"CMCC-A9";
 #elif defined(CONFIG_4GAX56)
 	"4G-AX56";
 #elif defined(CONFIG_RTAX54)
@@ -80,6 +84,10 @@ const char *blver =
 #elif defined(CONFIG_XG1)
 	"1000";
 #elif defined(CONFIG_AX18T)
+	"1000";
+#elif defined(CONFIG_Q20)
+	"1000";
+#elif defined(CONFIG_A9)
 	"1000";
 #elif defined(CONFIG_4GAX56)
 	"1003";
