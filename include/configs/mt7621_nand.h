@@ -124,6 +124,13 @@
 #define WAN_LED                 14
 #endif 
 
+#if defined(CONFIG_C3N)
+#define RST_BTN                 18
+#define PWR_LED                 31
+#define WAN_LED                 8
+#define LAN_LED                 7
+#endif 
+
 #ifdef CONFIG_4GAX56
 #define WPS_BTN                 4
 #define RST_BTN                 8

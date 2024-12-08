@@ -521,6 +521,12 @@ config Q20
 	help
 	  Enable Q20.
 
+config C3N
+	bool "Enable C3N"
+	default n
+	help
+	  Enable C3N.
+
 config A9
 	bool "Enable A9"
 	default n

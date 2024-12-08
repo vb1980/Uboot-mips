@@ -66,6 +66,8 @@ const char *model =
 	"JCG-Q20";
 #elif defined(CONFIG_A9)
 	"CMCC-A9";
+#elif defined(CONFIG_C3N)
+	"XY-C3NAND";
 #elif defined(CONFIG_4GAX56)
 	"4G-AX56";
 #elif defined(CONFIG_RTAX54)
@@ -88,6 +90,8 @@ const char *blver =
 #elif defined(CONFIG_Q20)
 	"1000";
 #elif defined(CONFIG_A9)
+	"1000";
+#elif defined(CONFIG_C3N)
 	"1000";
 #elif defined(CONFIG_4GAX56)
 	"1003";
