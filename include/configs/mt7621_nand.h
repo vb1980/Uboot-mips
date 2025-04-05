@@ -131,6 +131,13 @@
 #define LAN_LED                 7
 #endif 
 
+#if defined(CONFIG_RM2100)
+#define RST_BTN                 18
+#define PWR_LED                 6
+#define WAN_LED                 8
+#define LAN_LED                 11
+#endif 
+
 #ifdef CONFIG_4GAX56
 #define WPS_BTN                 4
 #define RST_BTN                 8

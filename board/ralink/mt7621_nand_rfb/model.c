@@ -57,7 +57,7 @@ int gpio_input(unsigned int pin)
 void gpio_init(void)
 {
 	printf("%s ......\n", __func__);
-#if !defined(CONFIG_C3N)
+#if !defined(CONFIG_C3N) && !defined(CONFIG_RM2100)
 	gpio_input(WPS_BTN);
 #endif
 	gpio_input(RST_BTN);
@@ -67,7 +67,7 @@ void gpio_init(void)
 	gpio_output(SYS_BLED,0);
 #else	
 	gpio_output(PWR_LED,0);
-#if !defined(CONFIG_H3CTX180X) && !defined(CONFIG_AX18T) && !defined(CONFIG_Q20) && !defined(CONFIG_A9) && !defined(CONFIG_C3N)
+#if !defined(CONFIG_H3CTX180X) && !defined(CONFIG_AX18T) && !defined(CONFIG_Q20) && !defined(CONFIG_A9) && !defined(CONFIG_C3N) && !defined(CONFIG_RM2100)
 	gpio_output(WIFI_2G_LED,0);
 	gpio_output(WIFI_5G_LED,0);
 #endif
@@ -128,7 +128,7 @@ void LEDOFF(void)
 }
 void PWR_LEDON(void)
 {
-#if defined(CONFIG_RTAX53U) || defined(CONFIG_RTAX54) || defined(CONFIG_H3CTX180X) || defined(CONFIG_XG1) || defined(CONFIG_AX18T) || defined(CONFIG_Q20) || defined(CONFIG_A9) || defined(CONFIG_C3N)
+#if defined(CONFIG_RTAX53U) || defined(CONFIG_RTAX54) || defined(CONFIG_H3CTX180X) || defined(CONFIG_XG1) || defined(CONFIG_AX18T) || defined(CONFIG_Q20) || defined(CONFIG_A9) || defined(CONFIG_C3N) || defined(CONFIG_RM2100)
 	gpio_output(PWR_LED,0);
 #elif defined(CONFIG_4GAX56)
 	gpio_output(PWR_LED,1);
@@ -163,7 +163,7 @@ unsigned long DETECT(void)
 unsigned long DETECT_WPS(void)
 {
 	int key = 0;
-#if !defined(CONFIG_C3N)
+#if !defined(CONFIG_C3N) && !defined(CONFIG_RM2100)
 	if(!gpio_input(WPS_BTN))
 	{
 		key = 1;

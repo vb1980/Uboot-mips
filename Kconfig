@@ -533,6 +533,12 @@ config A9
 	help
 	  Enable A9.
 
+config RM2100
+	bool "Enable RM2100"
+	default n
+	help
+	  Enable RM2100.
+
 config RTAX54
 	bool "Enable RTAX54"
 	default n
