@@ -80,7 +80,7 @@
 #define ASUS_FW			"XD4S.trx"
 #endif 
 
-#if defined(CONFIG_RTAX53U) || defined(CONFIG_RTAX54)
+#if defined(CONFIG_RTAX53U) || defined(CONFIG_RTAX54) 
 #define WPS_BTN                 15
 #define RST_BTN                 16
 #define PWR_LED                 13
@@ -137,6 +137,19 @@
 #define WAN_LED                 8
 #define LAN_LED                 11
 #endif 
+
+#if defined(CONFIG_CR660X)
+#define WPS_BTN                 7
+#define RST_BTN                 18
+#define PWR_LED                 16
+#define WAN_LED                 15
+#endif
+
+#if defined(CONFIG_BZV)
+#define WPS_BTN                 18
+#define RST_BTN                 12
+#define PWR_LED                 5
+#endif
 
 #ifdef CONFIG_4GAX56
 #define WPS_BTN                 4

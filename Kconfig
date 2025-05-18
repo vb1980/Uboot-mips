@@ -539,6 +539,19 @@ config RM2100
 	help
 	  Enable RM2100.
 
+config CR660X
+	bool "Enable CR660X"
+	default n
+	help
+	  Enable CR660X.
+
+config BZV
+	bool "Enable BZV"
+	default n
+	help
+	  Enable BZV.
+
+
 config RTAX54
 	bool "Enable RTAX54"
 	default n

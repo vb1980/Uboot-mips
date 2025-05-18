@@ -70,6 +70,10 @@ const char *model =
 	"XY-C3NAND";
 #elif defined(CONFIG_RM2100)
 	"REDMI-AC2100";
+#elif defined(CONFIG_CR660X)
+	"XIAOMI-CR660X";
+#elif defined(CONFIG_BZV)
+	"NETGEAR-BZV";
 #elif defined(CONFIG_4GAX56)
 	"4G-AX56";
 #elif defined(CONFIG_RTAX54)
@@ -96,6 +100,10 @@ const char *blver =
 #elif defined(CONFIG_C3N)
 	"1000";
 #elif defined(CONFIG_RM2100)
+	"1000";
+#elif defined(CONFIG_CR660X)
+	"1000";
+#elif defined(CONFIG_BZV)
 	"1000";
 #elif defined(CONFIG_4GAX56)
 	"1003";
