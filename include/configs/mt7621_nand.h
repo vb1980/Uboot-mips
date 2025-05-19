@@ -151,6 +151,13 @@
 #define PWR_LED                 5
 #endif
 
+#if defined(CONFIG_R3P)
+#define RST_BTN                 18
+#define PWR_LED                 8
+#define WAN_LED                 10
+#define LAN_LED                 6
+#endif
+
 #ifdef CONFIG_4GAX56
 #define WPS_BTN                 4
 #define RST_BTN                 8

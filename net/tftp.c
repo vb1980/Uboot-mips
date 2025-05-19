@@ -1136,7 +1136,7 @@ static void tftp_handler(uchar *pkt, unsigned dest, struct in_addr sip,
 		tftp_send(); /* Send ACK or first data block */
 		break;
 	case TFTP_DATA:
-#if defined(CONFIG_RTAX53U) || defined(CONFIG_4GAX56) || defined(CONFIG_RTAX54) || defined(CONFIG_H3CTX180X) || defined(CONFIG_XG1) || defined(CONFIG_AX18T) || defined(CONFIG_Q20) || defined(CONFIG_A9) || defined(CONFIG_C3N) || defined(CONFIG_RM2100) || defined(CONFIG_CR660X) || defined(CONFIG_BZV)
+#if defined(CONFIG_RTAX53U) || defined(CONFIG_4GAX56) || defined(CONFIG_RTAX54) || defined(CONFIG_H3CTX180X) || defined(CONFIG_XG1) || defined(CONFIG_AX18T) || defined(CONFIG_Q20) || defined(CONFIG_A9) || defined(CONFIG_C3N) || defined(CONFIG_RM2100) || defined(CONFIG_CR660X) || defined(CONFIG_BZV) || defined(CONFIG_R3P)
         PWR_LEDON();
 #endif  // CONFIG_RTAX53U
 		if (len < 2)

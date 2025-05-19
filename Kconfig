@@ -551,6 +551,11 @@ config BZV
 	help
 	  Enable BZV.
 
+config R3P
+	bool "Enable R3P"
+	default n
+	help
+	  Enable R3P.
 
 config RTAX54
 	bool "Enable RTAX54"

@@ -74,6 +74,8 @@ const char *model =
 	"XIAOMI-CR660X";
 #elif defined(CONFIG_BZV)
 	"NETGEAR-BZV";
+#elif defined(CONFIG_R3P)
+	"XIAOMI-R3P";
 #elif defined(CONFIG_4GAX56)
 	"4G-AX56";
 #elif defined(CONFIG_RTAX54)
@@ -104,6 +106,8 @@ const char *blver =
 #elif defined(CONFIG_CR660X)
 	"1000";
 #elif defined(CONFIG_BZV)
+	"1000";
+#elif defined(CONFIG_R3P)
 	"1000";
 #elif defined(CONFIG_4GAX56)
 	"1003";

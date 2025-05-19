@@ -49,7 +49,7 @@ static int do_mtkautoboot(cmd_tbl_t *cmdtp, int flag, int argc,
 			 bootmenu_entries[i].desc, bootmenu_entries[i].cmd);
 		env_set(key, val);
 	}
-#if defined(CONFIG_RTAX53U) || defined(CONFIG_4GAX56) || defined(CONFIG_RTAX54) || defined(CONFIG_XD4S) || defined(CONFIG_H3CTX180X) || defined(CONFIG_XG1) || defined(CONFIG_AX18T) || defined(CONFIG_Q20) || defined(CONFIG_A9) || defined(CONFIG_C3N) || defined(CONFIG_RM2100) || defined(CONFIG_CR660X) || defined(CONFIG_BZV)
+#if defined(CONFIG_RTAX53U) || defined(CONFIG_4GAX56) || defined(CONFIG_RTAX54) || defined(CONFIG_XD4S) || defined(CONFIG_H3CTX180X) || defined(CONFIG_XG1) || defined(CONFIG_AX18T) || defined(CONFIG_Q20) || defined(CONFIG_A9) || defined(CONFIG_C3N) || defined(CONFIG_RM2100) || defined(CONFIG_CR660X) || defined(CONFIG_BZV) || defined(CONFIG_R3P)
 	env_set("mtdids", CONFIG_MTDIDS_DEFAULT);
 	env_set("mtdparts", CONFIG_MTDPARTS_DEFAULT);
 #endif
