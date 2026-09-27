@@ -27,6 +27,7 @@ jobs:
           - hiwifi4
           - e8820s
           - a040wq
+          - msg1500x00
     steps:
       - name: Check out source
         uses: actions/checkout@v4

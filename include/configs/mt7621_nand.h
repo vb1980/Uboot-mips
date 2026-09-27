@@ -183,7 +183,7 @@
 #define PWR_LED                 16 /* Active low */
 #endif
 
-#if defined(CONFIG_A040WQ)
+#if defined(CONFIG_A040WQ) || defined(CONFIG_MSG1500X00)
 #define WPS_BTN                 18
 #define RST_BTN                 15
 #define PWR_LED                 13 /* USB LED, active low; used for boot status */

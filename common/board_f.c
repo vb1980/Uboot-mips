@@ -86,6 +86,8 @@ const char *model =
 	"ZTE-E8820S";
 #elif defined(CONFIG_A040WQ)
 	"Nokia A-040W-Q";
+#elif defined(CONFIG_MSG1500X00)
+	"RAISECOM MSG1500 X.00";
 #elif defined(CONFIG_4GAX56)
 	"4G-AX56";
 #elif defined(CONFIG_RTAX54)
@@ -128,6 +130,8 @@ const char *blver =
 #elif defined(CONFIG_E8820S)
 	"1000";
 #elif defined(CONFIG_A040WQ)
+	"1000";
+#elif defined(CONFIG_MSG1500X00)
 	"1000";
 #elif defined(CONFIG_4GAX56)
 	"1003";

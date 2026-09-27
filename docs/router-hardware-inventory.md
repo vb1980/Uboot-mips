@@ -17,6 +17,7 @@
 | CMCC A9 | 中国移动 A9 | MT7621（仓库平台，待实机确认） | 待确认 | 待确认 | 待确认 | 双频无线，芯片待确认 | MT7621 NAND U-Boot |
 | HiWiFi 4 | 极路由 4 增强版 / HC5962 / B70 | MT7621AT，双核 880 MHz | 256 MB DDR3 | 128 MB NAND | 4×千兆 | MT7603EN + MT7612EN，N300 + AC867 | NAND U-Boot；OpenWrt 官方支持 |
 | A-040W-Q | Nokia A-040W-Q / RAISECOM MSG1500 X.00 同硬件型号 | MT7621A，双核 880 MHz | 256 MB DDR3 | 128 MB NAND | 千兆以太网 | MT7615D 双频 802.11ac | NAND U-Boot；本仓库使用统一 NMBM 布局 |
+| MSG1500 X.00 | RAISECOM MSG1500 X.00 | MT7621A，双核 880 MHz | 256 MB DDR3 | 128 MB NAND | 千兆以太网 | MT7615D 双频 802.11ac | NAND U-Boot；独立构建配置沿用 A-040W-Q 硬件定义 |
 | ASUS RT-AX53U | ASUS RT-AX53U / RT-AX1800U | MT7621AT，双核 880 MHz | 256 MB | 128 MB NAND | 4×千兆 | MT7975 + MT7905，2.4/5 GHz Wi‑Fi 6 | U-Boot，支持 TFTP 恢复 |
 | ASUS RT-AX54 | ASUS RT-AX54 / AX1800 系列 | MT7621AT，双核 880 MHz | 256 MB | 128 MB NAND | 1×WAN + 4×LAN（公开设备资料） | 双频 Wi‑Fi 6，具体射频因变体而异 | U-Boot，OpenWrt 有独立设备支持 |
 | ASUS ZenWiFi XD4S | ASUS XD4S | MT7621（仓库配置命名推断，待实机确认） | 待确认 | 待确认 | 千兆端口，具体数量待确认 | AX1800 Mesh，射频芯片待确认 | 仓库提供 `config_xd4s` |
@@ -197,3 +198,10 @@ OpenWrt 将 A-040W-Q 列为 RAISECOM MSG1500 X.00 的同硬件型号。设备树
 `config_a040wq` 使用 256 MB DDR3、128 MB NAND 的 MT7621 NAND 配置。闪存沿用仓库统一的 NMBM 分区，固件偏移为 `0x3e0000`；原厂设备树的 `0x140000` kernel 分区不适用于此镜像。配套系统镜像必须采用相同布局。当前仅完成编译验证，按键和灯需实机确认。
 
 来源：[OpenWrt A-040W-Q 同硬件型号提交](https://git.openwrt.org/?p=openwrt/openwrt.git;a=commit;h=4f9b360f0b9a85202422ef07ee573eeca06d11ab)，[OpenWrt MSG1500 设备树](https://github.com/openwrt/openwrt/blob/main/target/linux/ramips/dts/mt7621_raisecom_msg1500-x-00.dts)。
+
+
+## RAISECOM MSG1500 X.00
+
+新增 `CONFIG_MSG1500X00` 和 `config_msg1500x00`。依据 OpenWrt 的 `mt7621_raisecom_msg1500-x-00.dts`，它与 A-040W-Q 使用相同的 GPIO15 复位键、GPIO18 WPS 键、GPIO13 USB 灯定义。构建配置沿用项目 NMBM 分区与 `0x3e0000` 固件偏移，并启用网页救援、HTTP 和 DHCP。镜像须搭配相同分区布局的系统固件；GPIO 和启动流程仍需实机验证。
+
+来源：[OpenWrt MSG1500 X.00 设备树](https://github.com/openwrt/openwrt/blob/main/target/linux/ramips/dts/mt7621_raisecom_msg1500-x-00.dts)。

@@ -589,6 +589,13 @@ config A040WQ
 	help
 	  Enable Nokia A-040W-Q NAND board support with the project NMBM layout.
 
+config MSG1500X00
+	bool "Enable RAISECOM MSG1500 X.00"
+	depends on BOARD_MT7621_NAND_RFB && ASUS_PRODUCT
+	default n
+	help
+	  Enable RAISECOM MSG1500 X.00 NAND board support with the project NMBM layout.
+
 config RTAX54
 	bool "Enable RTAX54"
 	default n

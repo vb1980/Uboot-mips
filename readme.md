@@ -17,6 +17,7 @@
 | `config_hiwifi4` | 极路由 4 增强版 / HC5962 / B70 |
 | `config_e8820s` | ZTE E8820S，使用 RT-AX53U 闪存布局 |
 | `config_a040wq` | Nokia A-040W-Q，使用项目 NMBM 闪存布局 |
+| `config_msg1500x00` | RAISECOM MSG1500 X.00，使用项目 NMBM 闪存布局 |
 
 其他机型选项见根目录 `Kconfig`，硬件资料与适配说明见 [机型硬件配置汇总](docs/router-hardware-inventory.md)。
 
@@ -89,9 +90,13 @@ make CROSS_COMPILE=/path/to/toolchain/bin/mipsel-linux- -j8
 
 硬件定义参考 OpenWrt 的 `raisecom,msg1500-x-00` 设备树；OpenWrt 将 Nokia A-040W-Q 列为该机型的同硬件名称。本配置尚未经过 A-040W-Q 实机验证。
 
+## MSG1500 X.00 适配约定
+
+`config_msg1500x00` 是 MSG1500 X.00 的独立构建配置，沿用 A-040W-Q 的 MT7621、256 MB DDR3、128 MB NAND 参数及 GPIO 定义：复位键 GPIO15、WPS 键 GPIO18，均为低电平触发；GPIO13 低电平点亮的 USB 灯用作 U-Boot 状态灯。镜像使用本项目统一的 NMBM 分区和 `0x3e0000` 固件偏移，不兼容原厂设备树中的 `0x140000` kernel 分区。尚未完成实机验证。
+
 ## 网页救援
 
-上表 9 份机型配置均已启用 `WEBUI_FAILSAFE`、HTTP 服务和救援 DHCP 服务。按住复位键上电可进入网页救援；也可在串口 U-Boot 命令行执行 `httpd`。
+上表 10 份机型配置均已启用 `WEBUI_FAILSAFE`、HTTP 服务和救援 DHCP 服务。按住复位键上电可进入网页救援；也可在串口 U-Boot 命令行执行 `httpd`。
 
 1. 电脑通过网线连接路由器 LAN 口，并设置为 `192.168.1.x/24` 网段内的可用地址，例如 `192.168.1.2`。
 2. 按住复位键上电，进入网页救援；也可在串口 U-Boot 命令行执行 `httpd`。
