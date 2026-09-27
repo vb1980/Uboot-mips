@@ -205,3 +205,7 @@ OpenWrt 将 A-040W-Q 列为 RAISECOM MSG1500 X.00 的同硬件型号。设备树
 新增 `CONFIG_MSG1500X00` 和 `config_msg1500x00`。依据 OpenWrt 的 `mt7621_raisecom_msg1500-x-00.dts`，它与 A-040W-Q 使用相同的 GPIO15 复位键、GPIO18 WPS 键、GPIO13 USB 灯定义。构建配置沿用项目 NMBM 分区与 `0x3e0000` 固件偏移，并启用网页救援、HTTP 和 DHCP。镜像须搭配相同分区布局的系统固件；GPIO 和启动流程仍需实机验证。
 
 来源：[OpenWrt MSG1500 X.00 设备树](https://github.com/openwrt/openwrt/blob/main/target/linux/ramips/dts/mt7621_raisecom_msg1500-x-00.dts)。
+
+### R6800 项目配置
+
+新增 `CONFIG_R6800`、`config_r6800` 和自动编译入口。复位 GPIO12、WPS GPIO18，GPIO5 WLAN 灯用作状态灯，均低电平有效；SX1503 扩展器上的电源灯未接入 U-Boot。采用统一 NMBM 分区与 `0x3e0000` 固件偏移，不使用原厂 Sercomm 分区。硬件定义参考本地 OpenWrt/ImmortalWrt 的 `mt7621_netgear_r6800.dts` 及 `mt7621_netgear_sercomm_bzv.dtsi`。尚未实机验证。

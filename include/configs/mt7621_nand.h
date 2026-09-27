@@ -145,7 +145,7 @@
 #define WAN_LED                 15
 #endif
 
-#if defined(CONFIG_BZV)
+#if defined(CONFIG_BZV) || defined(CONFIG_R6800)
 #define WPS_BTN                 18
 #define RST_BTN                 12
 #define PWR_LED                 5

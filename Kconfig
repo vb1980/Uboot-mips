@@ -551,6 +551,13 @@ config BZV
 	help
 	  Enable BZV.
 
+config R6800
+	bool "Enable NETGEAR R6800"
+	depends on BOARD_MT7621_NAND_RFB && ASUS_PRODUCT
+	default n
+	help
+	  Enable R6800 NAND support using the project NMBM layout.
+
 config R3P
 	bool "Enable R3P"
 	default n

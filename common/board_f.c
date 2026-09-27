@@ -74,6 +74,8 @@ const char *model =
 	"XM-CR660X";
 #elif defined(CONFIG_BZV)
 	"NETGEAR-BZV";
+#elif defined(CONFIG_R6800)
+	"NETGEAR R6800";
 #elif defined(CONFIG_R3P)
 	"XM-R3G/P";
 #elif defined(CONFIG_RX6000)
@@ -116,6 +118,8 @@ const char *blver =
 #elif defined(CONFIG_RM2100)
 	"1000";
 #elif defined(CONFIG_CR660X)
+	"1000";
+#elif defined(CONFIG_R6800)
 	"1000";
 #elif defined(CONFIG_BZV)
 	"1000";

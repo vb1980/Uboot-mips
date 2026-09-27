@@ -13,6 +13,7 @@
 | `config_xd4s` | ASUS ZenWiFi XD4S |
 | `config_4gax56` | ASUS 4G-AX56 |
 | `config_r3p` | 小米 R3P |
+| `config_r6800` | NETGEAR R6800，使用项目 NMBM 闪存布局 |
 | `config_rm2100` | Redmi AC2100 / RM2100 |
 | `config_hiwifi4` | 极路由 4 增强版 / HC5962 / B70 |
 | `config_e8820s` | ZTE E8820S，使用 RT-AX53U 闪存布局 |
@@ -96,7 +97,7 @@ make CROSS_COMPILE=/path/to/toolchain/bin/mipsel-linux- -j8
 
 ## 网页救援
 
-上表 10 份机型配置均已启用 `WEBUI_FAILSAFE`、HTTP 服务和救援 DHCP 服务。按住复位键上电可进入网页救援；也可在串口 U-Boot 命令行执行 `httpd`。
+上表 11 份机型配置均已启用 `WEBUI_FAILSAFE`、HTTP 服务和救援 DHCP 服务。按住复位键上电可进入网页救援；也可在串口 U-Boot 命令行执行 `httpd`。
 
 1. 电脑通过网线连接路由器 LAN 口，并设置为 `192.168.1.x/24` 网段内的可用地址，例如 `192.168.1.2`。
 2. 按住复位键上电，进入网页救援；也可在串口 U-Boot 命令行执行 `httpd`。
@@ -109,3 +110,9 @@ make CROSS_COMPILE=/path/to/toolchain/bin/mipsel-linux- -j8
 E8820S 已完成交叉编译和镜像打包验证，并核对闪存、DDR 参数与 RT-AX53U 配置一致；尚未完成实机验证。
 
 复位键极性在不同开源设备树中存在差异，目前按低电平实现。DDR 初始化、复位键、指示灯、以太网和网页救援仍需实机确认。
+
+## R6800 适配约定
+
+`config_r6800` 使用 MT7621 880 MHz、256 MB DDR3、128 MB NAND，启用网页救援、HTTP 和 DHCP。复位键 GPIO12、WPS GPIO18 均低电平触发；GPIO5 的低电平 WLAN 灯用作 U-Boot 状态灯。电源灯位于 SX1503 扩展器，本配置不控制该灯。
+
+闪存采用项目统一 NMBM 布局，固件偏移 `0x3e0000`，与原厂 Sercomm 分区不同；配套固件及 Factory 数据须按项目布局准备。编译验证不能代替实机验证。
