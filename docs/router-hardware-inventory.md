@@ -10,10 +10,10 @@
 |---|---|---|---:|---:|---|---|---|
 | G-AX1800 | 型号归属待确认 | MT7621 双核 880 MHz（仓库平台） | 待确认 | 待确认 | MT7621/MT7530 千兆交换机（平台级） | AX1800，芯片待确认 | MT7621 NAND U-Boot，仓库提交明确支持 |
 | ZTT RX6000 | ZTT RX6000 | MT7621 双核 880 MHz（高度可能，待实机确认） | 待确认 | 待确认 | 千兆交换机，端口数待确认 | AC/AX 规格待确认 | MT7621 NAND U-Boot，仓库提交明确支持 |
-| 小米 R3P | Xiaomi Mi Router 3 Pro | MT7621A，双核 880 MHz | 256 MB | NAND，常见 128 MB | 1×WAN + 3×LAN，千兆 | MT7615，2.4/5 GHz 802.11ac | NAND 启动，OpenWrt 有独立设备支持 |
+| 小米 R3P | Xiaomi Mi Router 3 Pro | MT7621A，双核 880 MHz | 512 MB（按用户提供规格配置，待实机核对） | NAND，常见 128 MB | 1×WAN + 3×LAN，千兆 | MT7615，2.4/5 GHz 802.11ac | NAND 启动，OpenWrt 有独立设备支持 |
 | 网件 R6800 | NETGEAR AC1900 R6800 | MT7621AT，双核 880 MHz | 256 MB | 128 MB（厂商数据表） | 千兆以太网交换机 | 双频 AC1900，3×3 2.4 GHz + 3×3 5 GHz | U-Boot；OpenWrt 有独立设备支持 |
 | RM2100 | Xiaomi Redmi Router AC2100 | MT7621，双核 880 MHz | 128 MB（常见公开资料） | 128 MB ESMT NAND | 1×WAN + 3×LAN，千兆 | 2.4/5 GHz 802.11ac，4×4 规格（区域资料有差异） | NAND + NMBM；仓库配置为 MT7621 NAND |
-| 小娱 C3 NAND 版 | 小娱 C3（NAND 版） | MT7621（仓库平台，待实机确认） | 待确认 | NAND，容量待确认 | 千兆端口布局待确认 | 双频无线，芯片待确认 | 仓库提交明确区分 NAND 版 |
+| 小娱 C3 NAND 版 | 小娱 C3（NAND 版） | MT7621（仓库平台，待实机确认） | 512 MB（按用户提供规格配置，待实机核对） | NAND，容量待确认 | 千兆端口布局待确认 | 双频无线，芯片待确认 | 仓库提交明确区分 NAND 版 |
 | CMCC A9 | 中国移动 A9 | MT7621（仓库平台，待实机确认） | 待确认 | 待确认 | 待确认 | 双频无线，芯片待确认 | MT7621 NAND U-Boot |
 | HiWiFi 4 | 极路由 4 增强版 / HC5962 / B70 | MT7621AT，双核 880 MHz | 256 MB DDR3 | 128 MB NAND | 4×千兆 | MT7603EN + MT7612EN，N300 + AC867 | NAND U-Boot；OpenWrt 官方支持 |
 | A-040W-Q | Nokia A-040W-Q / RAISECOM MSG1500 X.00 同硬件型号 | MT7621A，双核 880 MHz | 256 MB DDR3 | 128 MB NAND | 千兆以太网 | MT7615D 双频 802.11ac | NAND U-Boot；本仓库使用统一 NMBM 布局 |
@@ -29,7 +29,7 @@
 ### 小米 Mi Router 3 Pro（R3P）
 
 - SoC：MediaTek MT7621A，双核 MIPS，880 MHz。
-- 内存：256 MB DDR3。
+- 内存：本仓库按用户提供规格配置 512 MB DDR3；公开资料列为 256 MB，需确认设备批次与实机容量。
 - 闪存：NAND；公开启动日志显示常见容量为 128 MB，NAND 页 2048 B、擦除块 128 KiB。
 - 网络：MT7530 交换芯片，1 个 WAN、3 个 LAN，均为千兆。
 - 无线：MediaTek MT7615，双频 802.11ac，4 根外置天线。
@@ -209,3 +209,7 @@ OpenWrt 将 A-040W-Q 列为 RAISECOM MSG1500 X.00 的同硬件型号。设备树
 ### R6800 项目配置
 
 新增 `CONFIG_R6800`、`config_r6800` 和自动编译入口。复位 GPIO12、WPS GPIO18，GPIO5 WLAN 灯用作状态灯，均低电平有效；SX1503 扩展器上的电源灯未接入 U-Boot。采用统一 NMBM 分区与 `0x3e0000` 固件偏移，不使用原厂 Sercomm 分区。硬件定义参考本地 OpenWrt/ImmortalWrt 的 `mt7621_netgear_r6800.dts` 及 `mt7621_netgear_sercomm_bzv.dtsi`。尚未实机验证。
+
+## 自动编译配置补充（2026-09-27）
+
+新增 `config_h3ctx180x`、`config_xg1`、`config_ax18t`、`config_q20`、`config_cr660x`、`config_bzv`、`config_rx6000` 和 `config_gax1800`，并加入 GitHub Actions。XG1、C3N、R3P 按用户提供规格选用 512 MB DDR3 初始化；其余新增配置暂沿用 256 MB DDR3 和项目 NMBM 布局。这些配置用于自动编译，硬件参数和原厂分区尚需实机核对。

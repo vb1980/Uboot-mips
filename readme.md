@@ -19,6 +19,16 @@
 | `config_e8820s` | ZTE E8820S，使用 RT-AX53U 闪存布局 |
 | `config_a040wq` | Nokia A-040W-Q，使用项目 NMBM 闪存布局 |
 | `config_msg1500x00` | RAISECOM MSG1500 X.00，使用项目 NMBM 闪存布局 |
+| `config_a9` | CMCC A9，使用项目 NMBM 闪存布局 |
+| `config_c3n` | 小娱 C3 NAND，使用项目 NMBM 闪存布局 |
+| `config_h3ctx180x` | H3C TX180X |
+| `config_xg1` | XG1，512 MB DDR3 配置 |
+| `config_ax18t` | SIM AX18T |
+| `config_q20` | JCG Q20 |
+| `config_cr660x` | 小米 CR660X |
+| `config_bzv` | NETGEAR BZV |
+| `config_rx6000` | ZTT RX6000 |
+| `config_gax1800` | G-AX1800 |
 
 其他机型选项见根目录 `Kconfig`，硬件资料与适配说明见 [机型硬件配置汇总](docs/router-hardware-inventory.md)。
 
@@ -97,7 +107,7 @@ make CROSS_COMPILE=/path/to/toolchain/bin/mipsel-linux- -j8
 
 ## 网页救援
 
-上表 11 份机型配置均已启用 `WEBUI_FAILSAFE`、HTTP 服务和救援 DHCP 服务。按住复位键上电可进入网页救援；也可在串口 U-Boot 命令行执行 `httpd`。
+上表 21 份机型配置均已启用 `WEBUI_FAILSAFE`、HTTP 服务和救援 DHCP 服务。按住复位键上电可进入网页救援；也可在串口 U-Boot 命令行执行 `httpd`。
 
 1. 电脑通过网线连接路由器 LAN 口，并设置为 `192.168.1.x/24` 网段内的可用地址，例如 `192.168.1.2`。
 2. 按住复位键上电，进入网页救援；也可在串口 U-Boot 命令行执行 `httpd`。
@@ -116,3 +126,11 @@ E8820S 已完成交叉编译和镜像打包验证，并核对闪存、DDR 参数
 `config_r6800` 使用 MT7621 880 MHz、256 MB DDR3、128 MB NAND，启用网页救援、HTTP 和 DHCP。复位键 GPIO12、WPS GPIO18 均低电平触发；GPIO5 的低电平 WLAN 灯用作 U-Boot 状态灯。电源灯位于 SX1503 扩展器，本配置不控制该灯。
 
 闪存采用项目统一 NMBM 布局，固件偏移 `0x3e0000`，与原厂 Sercomm 分区不同；配套固件及 Factory 数据须按项目布局准备。编译验证不能代替实机验证。
+
+## CMCC A9 与小娱 C3 NAND
+
+`config_a9` 和 `config_c3n` 已加入 GitHub Actions 自动编译。A9 暂沿用 256 MB DDR3 初始化参数；C3N 按用户提供的规格使用 512 MB DDR3 初始化参数。两者均使用项目 NMBM 闪存布局。闪存布局及启动流程仍需实机核对；编译产物不应在核对前直接刷入设备。
+
+## 其余新增自动编译机型
+
+H3C TX180X、SIM AX18T、JCG Q20、小米 CR660X、NETGEAR BZV、ZTT RX6000 与 G-AX1800 暂沿用 256 MB DDR3 和项目 NMBM 闪存布局；XG1 按用户提供的规格使用 512 MB DDR3。R3P 原有配置也已选用 512 MB DDR3。各机型的实际 DDR、NAND 容量及原厂分区仍需实机核对；自动编译成功不代表镜像可直接刷写。

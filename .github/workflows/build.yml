@@ -29,6 +29,16 @@ jobs:
           - e8820s
           - a040wq
           - msg1500x00
+          - a9
+          - c3n
+          - h3ctx180x
+          - xg1
+          - ax18t
+          - q20
+          - cr660x
+          - bzv
+          - rx6000
+          - gax1800
     steps:
       - name: Check out source
         uses: actions/checkout@v4
