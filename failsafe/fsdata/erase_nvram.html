@@ -1,0 +1,24 @@
+<!doctype html>
+<html>
+<head>
+	<title>Erase NVRAM - MediaTek System Recovery Mode</title>
+	<link rel="stylesheet" type="text/css" href="/style.css">
+</head>
+<body>
+	<div id="banner">
+		MediaTek U-Boot System Recovery Mode
+	</div>
+	<div id="main">
+		<p><strong>Erase NVRAM (Factory Defaults)</strong></p>
+		<p>This will reset all settings to factory defaults.</p>
+		<p>Your MAC address and calibration data may be preserved.</p>
+		<p><strong>Warning: This action cannot be undone!</strong></p>
+		<p>Are you sure you want to erase NVRAM?</p>
+		<form action="/upload" method="post" enctype="multipart/form-data">
+			<input type="hidden" name="upload_type" value="3" />
+			<p><input type="submit" id="submit" value="Erase NVRAM" /></p>
+		</form>
+		<p><a href="/">Back to main menu</a></p>
+	</div>
+</body>
+</html>

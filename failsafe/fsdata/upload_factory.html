@@ -1,0 +1,24 @@
+<!doctype html>
+<html>
+<head>
+	<title>Confirm - MediaTek System Recovery Mode</title>
+	<link rel="stylesheet" type="text/css" href="/style.css">
+</head>
+<body>
+	<div id="banner">
+		MediaTek U-Boot System Recovery Mode
+	</div>
+	<div id="main">
+		<p>Factory data confirmation:</p>
+		<div id="fileinfo">
+			<p>MD5: XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</p>
+			<p>Size: YYYYYYYYYY Bytes</p>
+		</div>
+		<p>If all information above is correct, click [Proceed].</p>
+		<p><strong>Warning: Upgrading factory data may contain MAC address and other calibration data. Improper upgrade may damage your device!</strong></p>
+		<form action="/flashing_factory" method="post" enctype="multipart/form-data">
+			<p><input type="submit" id="submit" value="Proceed" /></p>
+		</form>
+	</div>
+</body>
+</html>

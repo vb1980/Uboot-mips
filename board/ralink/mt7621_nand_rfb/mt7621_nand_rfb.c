@@ -18,6 +18,8 @@
 #include <nmbm/nmbm.h>
 #include <nmbm/nmbm-mtd.h>
 
+extern unsigned long DETECT(void);
+
 #ifdef CONFIG_ENABLE_NAND_NMBM
 static int nmbm_usable;
 #endif
@@ -73,6 +75,13 @@ int last_stage_init(void)
 	LEDOFF();
 	PWR_LEDON();
 	GREEN_LEDON();
+	
+	/* Check if reset button is pressed */
+	if (DETECT()) {
+		printf("Reset button pressed, entering web failsafe mode...\n");
+		run_command("httpd", 0);
+	}
+	
 	return 0;
 }
 #endif

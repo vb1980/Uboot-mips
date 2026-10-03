@@ -69,13 +69,27 @@ const char *model =
 #elif defined(CONFIG_C3N)
 	"XY-C3NAND";
 #elif defined(CONFIG_RM2100)
-	"REDMI-AC2100";
+	"RM-AC2100";
 #elif defined(CONFIG_CR660X)
-	"XIAOMI-CR660X";
+	"XM-CR660X";
 #elif defined(CONFIG_BZV)
 	"NETGEAR-BZV";
+#elif defined(CONFIG_R6800)
+	"NETGEAR R6800";
 #elif defined(CONFIG_R3P)
-	"XIAOMI-R3P";
+	"XM-R3G/P";
+#elif defined(CONFIG_RX6000)
+	"ZTT-RX6000";
+#elif defined(CONFIG_GAX1800)
+	"G-AX1800";
+#elif defined(CONFIG_HIWIFI4)
+	"HiWiFi 4 (HC5962)";
+#elif defined(CONFIG_E8820S)
+	"ZTE-E8820S";
+#elif defined(CONFIG_A040WQ)
+	"Nokia A-040W-Q";
+#elif defined(CONFIG_MSG1500X00)
+	"RAISECOM MSG1500 X.00";
 #elif defined(CONFIG_4GAX56)
 	"4G-AX56";
 #elif defined(CONFIG_RTAX54)
@@ -105,9 +119,23 @@ const char *blver =
 	"1000";
 #elif defined(CONFIG_CR660X)
 	"1000";
+#elif defined(CONFIG_R6800)
+	"1000";
 #elif defined(CONFIG_BZV)
 	"1000";
 #elif defined(CONFIG_R3P)
+	"1000";
+#elif defined(CONFIG_RX6000)
+	"1002";
+#elif defined(CONFIG_GAX1800)
+	"1001";
+#elif defined(CONFIG_HIWIFI4)
+	"1000";
+#elif defined(CONFIG_E8820S)
+	"1000";
+#elif defined(CONFIG_A040WQ)
+	"1000";
+#elif defined(CONFIG_MSG1500X00)
 	"1000";
 #elif defined(CONFIG_4GAX56)
 	"1003";

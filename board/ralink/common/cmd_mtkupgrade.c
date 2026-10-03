@@ -729,6 +729,168 @@ int write_firmware_failsafe(size_t data_addr, uint32_t data_size)
 	return _write_firmware(flash, data_addr, data_size);
 }
 
+int write_bootloader_failsafe(size_t data_addr, uint32_t data_size)
+{
+	void *flash;
+
+	flash = mtk_board_get_flash_dev();
+
+	if (!flash)
+		return CMD_RET_FAILURE;
+
+	return write_bootloader(flash, data_addr, data_size);
+}
+
+int erase_nvram_failsafe(void)
+{
+	void *flash;
+	uint64_t addr, size;
+	char s[128];
+	int ret;
+
+	flash = mtk_board_get_flash_dev();
+
+	if (!flash)
+		return CMD_RET_FAILURE;
+
+	if (get_mtd_part_info("u-boot-env", &addr, &size)) {
+		printf("Cannot find u-boot-env partition\n");
+		return CMD_RET_FAILURE;
+	}
+
+	memset(s, 0, sizeof(s));
+	sprintf(s, "Erase 0x%08llx size 0x%llx\n", addr, size);
+	puts(s);
+
+	ret = mtk_board_flash_erase(flash, addr, size);
+
+	if (ret) {
+		printf("Fail\n");
+		return CMD_RET_FAILURE;
+	}
+
+	printf("OK\n");
+
+	return CMD_RET_SUCCESS;
+}
+
+int write_factory_failsafe(size_t data_addr, uint32_t data_size)
+{
+	void *flash;
+	uint32_t erase_size;
+	uint64_t part_off, part_size, tmp;
+	int ret;
+
+	flash = mtk_board_get_flash_dev();
+
+	if (!flash)
+		return CMD_RET_FAILURE;
+
+	/* Write to factory partition */
+	if (get_mtd_part_info("factory", &part_off, &part_size)) {
+		printf("Cannot find factory partition\n");
+		return CMD_RET_FAILURE;
+	}
+
+	if (!part_off) {
+		printf("MTD partition 'factory' is not valid!\n");
+		return CMD_RET_FAILURE;
+	}
+
+	tmp = part_off;
+
+	if (do_div(tmp, mtk_board_get_flash_erase_size(flash))) {
+		printf("MTD partition 'factory' does not start on erase boundary!\n");
+		return CMD_RET_FAILURE;
+	}
+
+	if (part_size < data_size) {
+		printf("Error: new factory data is larger than mtd partition 'factory'\n");
+		return CMD_RET_FAILURE;
+	}
+
+	printf("\n");
+
+	erase_size = ALIGN(data_size, mtk_board_get_flash_erase_size(flash));
+
+	printf("Erasing factory from 0x%llx to 0x%llx, size 0x%x ... ", part_off,
+	       part_off + erase_size - 1, erase_size);
+
+	ret = mtk_board_flash_erase(flash, part_off, erase_size);
+
+	if (ret) {
+		printf("Fail\n");
+		return CMD_RET_FAILURE;
+	}
+
+	printf("OK\n");
+
+	printf("Writing factory from 0x%x to 0x%llx, size 0x%x ... ", data_addr,
+	       part_off, data_size);
+
+	ret = mtk_board_flash_write(flash, part_off, data_size,
+				    (void *)data_addr);
+
+	if (ret) {
+		printf("Fail\n");
+		return CMD_RET_FAILURE;
+	}
+
+	printf("OK\n");
+
+	/* Write to factory2 partition */
+	if (get_mtd_part_info("factory2", &part_off, &part_size)) {
+		printf("Cannot find factory2 partition\n");
+		return CMD_RET_FAILURE;
+	}
+
+	if (!part_off) {
+		printf("MTD partition 'factory2' is not valid!\n");
+		return CMD_RET_FAILURE;
+	}
+
+	tmp = part_off;
+
+	if (do_div(tmp, mtk_board_get_flash_erase_size(flash))) {
+		printf("MTD partition 'factory2' does not start on erase boundary!\n");
+		return CMD_RET_FAILURE;
+	}
+
+	if (part_size < data_size) {
+		printf("Error: new factory data is larger than mtd partition 'factory2'\n");
+		return CMD_RET_FAILURE;
+	}
+
+	printf("Erasing factory2 from 0x%llx to 0x%llx, size 0x%x ... ", part_off,
+	       part_off + erase_size - 1, erase_size);
+
+	ret = mtk_board_flash_erase(flash, part_off, erase_size);
+
+	if (ret) {
+		printf("Fail\n");
+		return CMD_RET_FAILURE;
+	}
+
+	printf("OK\n");
+
+	printf("Writing factory2 from 0x%x to 0x%llx, size 0x%x ... ", data_addr,
+	       part_off, data_size);
+
+	ret = mtk_board_flash_write(flash, part_off, data_size,
+				    (void *)data_addr);
+
+	if (ret) {
+		printf("Fail\n");
+		return CMD_RET_FAILURE;
+	}
+
+	printf("OK\n");
+
+	printf("Factory and factory2 upgrade completed!\n");
+
+	return CMD_RET_SUCCESS;
+}
+
 static int write_firmware(void *flash, size_t data_addr, uint32_t data_size)
 {
 	return _write_firmware(flash, data_addr, data_size);
@@ -980,3 +1142,38 @@ U_BOOT_CMD(mtkload, 1, 0, do_mtkload,
 	"MTK image loading utility",
 	NULL
 );
+
+/*
+ * Web failsafe erase helpers.
+ * Uses fixed nmbm erase commands as provided by user:
+ *   nmbm nmbm0 erase 0x000e0000 0x00100000   -> NVRAM
+ *   nmbm nmbm0 erase 0x001e0000 0x00100000   -> Factory
+ *   nmbm nmbm0 erase 0x002e0000 0x00100000   -> Factory2
+ */
+extern int do_nmbm(cmd_tbl_t *cmdtp, int flag, int argc, char *const argv[]);
+
+static int _erase_nmbm(uint32_t offset, uint32_t size)
+{
+	char s_off[16], s_size[16];
+	char *argv[] = { NULL, "nmbm0", "erase", s_off, s_size };
+
+	sprintf(s_off, "0x%x", offset);
+	sprintf(s_size, "0x%x", size);
+
+	return do_nmbm(NULL, 0, ARRAY_SIZE(argv), argv);
+}
+
+int erase_factory_failsafe(void)
+{
+	return _erase_nmbm(0x001e0000, 0x00100000);
+}
+
+int erase_factory2_failsafe(void)
+{
+	return _erase_nmbm(0x002e0000, 0x00100000);
+}
+
+int erase_nvram_failsafe_ex(void)
+{
+	return _erase_nmbm(0x000e0000, 0x00100000);
+}

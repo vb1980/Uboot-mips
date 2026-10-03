@@ -1,2 +1,20 @@
-<p><strong>Upgrade complete!</strong></p>
-<p>Rebooting ...</p>
+<!doctype html>
+<html>
+<head>
+	<title>Success - MediaTek System Recovery Mode</title>
+	<link rel="stylesheet" type="text/css" href="/style.css">
+</head>
+<body>
+	<div id="banner">
+		MediaTek U-Boot System Recovery Mode
+	</div>
+	<div id="main">
+		<p><strong>Upgrade complete!</strong></p>
+		<p>The system will automatically reboot in a few seconds.</p>
+		<p>Or click the button below to reboot now:</p>
+		<form action="/reboot" method="post">
+			<p><input type="submit" id="submit" value="Reboot Now" /></p>
+		</form>
+	</div>
+</body>
+</html>

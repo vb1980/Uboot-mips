@@ -106,8 +106,8 @@
 #if defined(CONFIG_AX18T)
 #define WPS_BTN                 4
 #define RST_BTN                 18
-#define PWR_LED                 16
-#define WAN_LED                 15
+#define PWR_LED                 7
+#define WAN_LED                 8
 #endif 
 
 #if defined(CONFIG_Q20)
@@ -145,7 +145,7 @@
 #define WAN_LED                 15
 #endif
 
-#if defined(CONFIG_BZV)
+#if defined(CONFIG_BZV) || defined(CONFIG_R6800)
 #define WPS_BTN                 18
 #define RST_BTN                 12
 #define PWR_LED                 5
@@ -156,6 +156,37 @@
 #define PWR_LED                 8
 #define WAN_LED                 10
 #define LAN_LED                 6
+#endif
+
+#if defined(CONFIG_RX6000)
+#define WPS_BTN                 18
+#define RST_BTN                 16
+#define PWR_LED                 17
+#define WIFI_2G_LED             15
+#define WIFI_5G_LED             13
+#endif 
+
+#if defined(CONFIG_GAX1800)
+#define WPS_BTN                 6
+#define RST_BTN                 18
+#define PWR_LED                 8
+#endif 
+
+#if defined(CONFIG_HIWIFI4)
+#define RST_BTN                 18
+#define PWR_LED                 6
+#endif
+
+#if defined(CONFIG_E8820S)
+#define WPS_BTN                 8
+#define RST_BTN                 18 /* Active low; verify on hardware */
+#define PWR_LED                 16 /* Active low */
+#endif
+
+#if defined(CONFIG_A040WQ) || defined(CONFIG_MSG1500X00)
+#define WPS_BTN                 18
+#define RST_BTN                 15
+#define PWR_LED                 13 /* USB LED, active low; used for boot status */
 #endif
 
 #ifdef CONFIG_4GAX56

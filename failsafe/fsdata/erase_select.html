@@ -1,0 +1,82 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Erase Partition - MediaTek System Recovery Mode</title>
+	<link rel="stylesheet" type="text/css" href="/style.css">
+</head>
+<body>
+	<div id="banner">
+		MediaTek U-Boot System Recovery Mode
+	</div>
+	<div id="main">
+		<p><strong>Erase Partition</strong></p>
+		<p style="font-size:13px; color:#a00;">
+			<strong>WARNING:</strong> Erasing a partition will permanently destroy all data in that region.<br>
+			This action CANNOT be undone! Make sure you know exactly what you are doing.
+		</p>
+
+		<hr>
+
+		<p><strong>1. Erase NVRAM (0x000e0000, size 0x100000)</strong></p>
+		<p style="font-size:12px; color:#666;">
+			Resets all settings / environment variables to factory defaults.<br>
+			MAC / calibration data in Factory partition are preserved.<br>
+			Command: <code>nmbm nmbm0 erase 0x000e0000 0x00100000</code>
+		</p>
+		<form action="/do_erase_nvram" method="post" enctype="multipart/form-data"
+			onsubmit="return confirm('Are you SURE you want to erase NVRAM?\nThis cannot be undone!');">
+			<input type="hidden" name="part" value="nvram" />
+			<p><input type="submit" id="submit" value="Erase NVRAM" style="background:#369;" /></p>
+		</form>
+
+		<hr>
+
+		<p><strong>2. Erase Factory (0x001e0000, size 0x100000)</strong></p>
+		<p style="font-size:12px; color:#a00;">
+			<strong>DANGEROUS:</strong> This partition contains MAC address, RF calibration data,<br>
+			serial number, PIN code, country code, etc. Erasing it may cause<br>
+			permanent loss of WiFi capability if no backup exists.<br>
+			Command: <code>nmbm nmbm0 erase 0x001e0000 0x00100000</code>
+		</p>
+		<form action="/do_erase_factory" method="post" enctype="multipart/form-data"
+			onsubmit="return confirm('WARNING: Erasing Factory partition will destroy MAC &amp; calibration data!\n\nAre you ABSOLUTELY SURE?\nThis cannot be undone!');">
+			<input type="hidden" name="part" value="factory" />
+			<p><input type="submit" id="submit" value="Erase Factory" style="background:#a33;" /></p>
+		</form>
+
+		<hr>
+
+		<p><strong>3. Erase Factory2 (0x002e0000, size 0x100000)</strong></p>
+		<p style="font-size:12px; color:#a00;">
+			<strong>DANGEROUS:</strong> This is the backup copy of the Factory partition.<br>
+			If both Factory and Factory2 are erased, device will lose boot-time<br>
+			calibration recovery and fall into invalid EEPROM state.<br>
+			Command: <code>nmbm nmbm0 erase 0x002e0000 0x00100000</code>
+		</p>
+		<form action="/do_erase_factory2" method="post" enctype="multipart/form-data"
+			onsubmit="return confirm('WARNING: Erasing Factory2 (backup) partition!\n\nIf both copies are lost, device will have INVALID EEPROM after reboot.\n\nAre you REALLY SURE?\nThis cannot be undone!');">
+			<input type="hidden" name="part" value="factory2" />
+			<p><input type="submit" id="submit" value="Erase Factory2" style="background:#a33;" /></p>
+		</form>
+
+		<hr>
+
+		<p><strong>4. Erase All Three Partitions</strong></p>
+		<p style="font-size:12px; color:#c00;">
+			<strong>EXTREME DANGER:</strong> This will erase NVRAM + Factory + Factory2 simultaneously.<br>
+			Only use this if you intend to fully re-provision the device afterwards.<br>
+			Without restoring Factory data, WiFi will never work again.
+		</p>
+		<form action="/do_erase_all" method="post" enctype="multipart/form-data"
+			onsubmit="return confirm('EXTREME WARNING: This will ERASE ALL of NVRAM, Factory, and Factory2!\n\nDevice will be completely unprovisioned.\n\nAre you REALLY, REALLY, ABSOLUTELY SURE?\nThis CANNOT BE UNDONE!');">
+			<input type="hidden" name="part" value="all" />
+			<p><input type="submit" id="submit" value="Erase ALL Partitions" style="background:#c00; font-weight:bold;" /></p>
+		</form>
+
+		<hr>
+
+		<p><a href="/">Back to main menu</a></p>
+	</div>
+</body>
+</html>

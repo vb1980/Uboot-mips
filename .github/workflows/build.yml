@@ -1,0 +1,106 @@
+name: Build MT7621 U-Boot
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+    branches: [master]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    name: Build ${{ matrix.board }}
+    runs-on: ubuntu-22.04
+    strategy:
+      fail-fast: false
+      matrix:
+        board:
+          - rtax53u
+          - rtax54
+          - xd4s
+          - 4gax56
+          - r3p
+          - r6800
+          - rm2100
+          - hiwifi4
+          - e8820s
+          - a040wq
+          - msg1500x00
+          - a9
+          - c3n
+          - h3ctx180x
+          - xg1
+          - ax18t
+          - q20
+          - cr660x
+          - bzv
+          - rx6000
+          - gax1800
+    steps:
+      - name: Check out source
+        uses: actions/checkout@v4
+
+      - name: Install build dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends \
+            build-essential bison flex python2-dev swig xz-utils
+          python2 --version
+
+      - name: Extract bundled MIPS toolchain
+        run: |
+          sha256sum -c toolchains/SHA256SUMS
+          mkdir -p "$RUNNER_TEMP/mt7621-toolchain"
+          tar -xJf toolchains/buildroot-mipsel-uclibc-gcc-6.4.0.tar.xz \
+            -C "$RUNNER_TEMP/mt7621-toolchain"
+          export LD_LIBRARY_PATH="$RUNNER_TEMP/mt7621-toolchain/lib${LD_LIBRARY_PATH:+:$LD_LIBRARY_PATH}"
+          echo "LD_LIBRARY_PATH=$LD_LIBRARY_PATH" >> "$GITHUB_ENV"
+          "$RUNNER_TEMP/mt7621-toolchain/usr/bin/mipsel-linux-gcc" --version
+          printf 'int toolchain_probe;\n' | \
+            "$RUNNER_TEMP/mt7621-toolchain/usr/bin/mipsel-linux-gcc" \
+            -x c -c -o "$RUNNER_TEMP/toolchain-probe.o" -
+
+      - name: Configure
+        run: |
+          cp "config_${{ matrix.board }}" .config
+          make PYTHON=python2 \
+            CROSS_COMPILE="$RUNNER_TEMP/mt7621-toolchain/usr/bin/mipsel-linux-" \
+            olddefconfig
+
+      - name: Build SPL and U-Boot
+        run: |
+          make PYTHON=python2 \
+            CROSS_COMPILE="$RUNNER_TEMP/mt7621-toolchain/usr/bin/mipsel-linux-" \
+            -j2 spl/u-boot-spl
+          make PYTHON=python2 \
+            CROSS_COMPILE="$RUNNER_TEMP/mt7621-toolchain/usr/bin/mipsel-linux-" \
+            -j2
+
+      - name: Show device tree sources on failure
+        if: failure()
+        run: |
+          for source in arch/mips/dts/.*.dtb.pre.tmp arch/mips/dts/.*.dtb.dts.tmp; do
+            if test -f "$source"; then
+              echo "--- $source ---"
+              nl -ba "$source" | tail -n 35
+            fi
+          done
+
+      - name: Stage image and configuration
+        run: |
+          test -s u-boot-mt7621.bin
+          mkdir -p "dist/${{ matrix.board }}"
+          cp u-boot-mt7621.bin "dist/${{ matrix.board }}/"
+          cp .config "dist/${{ matrix.board }}/config"
+          sha256sum "dist/${{ matrix.board }}/u-boot-mt7621.bin" > "dist/${{ matrix.board }}/SHA256SUMS"
+
+      - name: Upload build artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: u-boot-mt7621-${{ matrix.board }}
+          path: dist/${{ matrix.board }}/
+          if-no-files-found: error
+          retention-days: 14

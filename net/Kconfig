@@ -31,4 +31,10 @@ config HTTPD
 	default n
 	depends on TCP
 
+config MTK_DHCPD
+	bool "MediaTek DHCP server support"
+	help
+	  This option enables MediaTek DHCP server for web failsafe mode
+	  Based on nor-uboot-mt7621 project
+
 endif   # if NET
