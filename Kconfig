@@ -603,6 +603,12 @@ config MSG1500X00
 	help
 	  Enable RAISECOM MSG1500 X.00 NAND board support with the project NMBM layout.
 
+config T6GS
+        bool "Enable T6GS"
+        default n
+        help
+          Enable T6GS.
+
 config RTAX54
 	bool "Enable RTAX54"
 	default n

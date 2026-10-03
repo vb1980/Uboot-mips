@@ -189,6 +189,13 @@
 #define PWR_LED                 13 /* USB LED, active low; used for boot status */
 #endif
 
+#if defined(CONFIG_T6GS)
+#define WPS_BTN                 6
+#define RST_BTN                 7
+#define PWR_LED                 13
+#define WAN_LED                 15
+#endif
+
 #ifdef CONFIG_4GAX56
 #define WPS_BTN                 4
 #define RST_BTN                 8

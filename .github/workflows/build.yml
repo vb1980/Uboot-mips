@@ -39,6 +39,7 @@ jobs:
           - bzv
           - rx6000
           - gax1800
+          - t6gs
     steps:
       - name: Check out source
         uses: actions/checkout@v4
